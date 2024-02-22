@@ -1,21 +1,8 @@
 import 'dart:convert';
+import 'package:feedfriendlocator/country.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-class Country {
-  final String name;
-  final List<int> latlng;
-
-  Country({required this.name, required this.latlng});
-
-  factory Country.fromJson(Map<String, dynamic> json) {
-    return Country(
-      name: json['name']['common'],
-      latlng: (json['latlng'] as List).cast<int>(),
-    );
-  }
-}
 
 class MapsApp extends StatelessWidget {
   @override
@@ -47,8 +34,8 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> fetchCountries() async {
-    final response = await http.get(
-        Uri.parse('https://restcountries.com/v3.1/all?fields=name,latlng'));
+    final response = await http.get(Uri.parse(
+        'https://restcountries.com/v3.1/all?fields=name,latlng,flags'));
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonResponse = json.decode(response.body);
@@ -89,6 +76,15 @@ class _MapScreenState extends State<MapScreen> {
                         infoWindow: InfoWindow(
                           title: selectedCountry!.name,
                         ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CountryDetailsScreen(
+                                  country: selectedCountry!),
+                            ),
+                          );
+                        },
                       ),
                     }
                   : {},
