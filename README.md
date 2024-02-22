@@ -17,3 +17,5 @@ Vous devriez pouvoir revenir à l'écran principal (Google Map).
 Tout autre développement ou amélioration est un plus."
 
 ## Aperçu
+phase 1 : Affichage de la carte centrée sur un point par défaut + marqueur :
+![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/0a99905a-d13d-494c-8299-00987712a349)
