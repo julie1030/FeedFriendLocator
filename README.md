@@ -17,3 +17,9 @@ Vous devriez pouvoir revenir à l'écran principal (Google Map).
 Tout autre développement ou amélioration est un plus."
 
 ## Aperçu
+phase 1 : Affichage de la carte centrée sur un point par défaut + marqueur :
+![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/0a99905a-d13d-494c-8299-00987712a349)
+
+phase finale : pour faire une simulation à l'échelle de Bruxelles : J'ai ajouté les frigos solidaires en hardcodant car pas d'API gratuite dispo.
+Source : https://www.bornin.brussels/categorie/frigo-solidaire/
+![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/cd50fe82-9d86-4f46-96bc-f4b5f27f6211)
