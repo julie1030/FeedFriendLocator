@@ -10,7 +10,8 @@ class MapsApp extends StatelessWidget {
     return MaterialApp(
       title: 'Country Maps',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Color.fromARGB(255, 237, 241, 124),
+        secondaryHeaderColor: Color.fromARGB(255, 141, 142, 120),
       ),
       home: MapScreen(),
     );
