@@ -42,7 +42,8 @@ Affichage de la carte centrée sur un point par défaut + marqueur :
 - Un cadre avec un fond coloré vient contenir les informations sur la seconde page.
 
 ## :mag_right: Apperçu de l'appli avant remise de l'exercice:
-
+![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/52aa443d-a367-42ba-a670-d60c4aa91027)
+![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/47e73d17-36d6-462d-b072-db091c1b5e93)
 ![image](https://github.com/julie1030/FeedFriendLocator/assets/133639183/ef5927d4-82fe-4a9c-8f51-bd8e999aa5fc)
 
 ## Difficultés rencontrées :
