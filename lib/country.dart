@@ -1,4 +1,3 @@
-// country_details_screen.dart
 import 'package:flutter/material.dart';
 
 // Classe représentant les drapeaux du pays
