@@ -40,35 +40,44 @@ class CountryDetailsScreen extends StatelessWidget {
   final Country country;
 
   // Constructeur prenant un objet Country pour afficher les détails
-  const CountryDetailsScreen({required this.country, super.key });
+  const CountryDetailsScreen({required this.country, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Country Details'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.network(
-              country.flags.png, // Utilise la propriété png de flags
-              width: 100,
-              height: 60, // Ajuste la largeur et la hauteur selon les besoins
+    return SizedBox(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Country Details'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Card(
+            color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.network(
+                    country.flags.png, // Utilise la propriété png de flags
+                    width: 100,
+                    height:
+                        60, // Ajuste la largeur et la hauteur selon les besoins
+                  ),
+                  Text('Name: ${country.name}'),
+                  const SizedBox(height: 10),
+                  Text('LatLng: ${country.latlng[0]}, ${country.latlng[1]}'),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Retourne à l'écran de la carte
+                    },
+                    child: const Text('Go Back to Map'),
+                  ),
+                ],
+              ),
             ),
-            Text('Name: ${country.name}'),
-            const SizedBox(height: 10),
-            Text('LatLng: ${country.latlng[0]}, ${country.latlng[1]}'),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Retourne à l'écran de la carte
-              },
-              child: const Text('Go Back to Map'),
-            ),
-          ],
+          ),
         ),
       ),
     );

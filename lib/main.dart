@@ -4,29 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+// Définissez le thème que vous souhaitez appliquer globalement
+ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  colorScheme:
+      ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 235, 199, 94)),
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+    bodyLarge:
+        TextStyle(fontSize: 18, color: Color.fromARGB(255, 133, 132, 132)),
+  ),
+  appBarTheme: const AppBarTheme(
+    color: Color.fromARGB(255, 250, 229, 167),
+    iconTheme: IconThemeData(color: Colors.amber),
+  ),
+);
+
 // Application principale qui utilise le widget MaterialApp
 class MapsApp extends StatelessWidget {
-  const MapsApp({super.key});
+  const MapsApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Country Maps',
-      theme: ThemeData(
-          primarySwatch: Colors.yellow, secondaryHeaderColor: Colors.grey),
+      title: 'Country maps',
+      theme: lightTheme,
       home: const MapScreen(),
     );
   }
-  // ThemeData _builCustomTheme() {
-  //   final ThemeData.light();
-  //   final ColorScheme=ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 156, 56, 108) );
-  //   return base.copyWith();
-
-  // }
 }
 
 // Écran de la carte qui utilise le widget StatefulWidget
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+  const MapScreen({Key? key}) : super(key: key);
+
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -36,17 +47,9 @@ class MapScreenState extends State<MapScreen> {
   List<Country> countries = [];
   Country? selectedCountry;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchCountries();
-  // }
-
   @override
   void initState() {
     super.initState();
-    // selectedCountry = countries.isNotEmpty ? countries.first : null;
-    // Permet que selectedCountry soit initialisé à une valeur non-nulle.
     fetchCountries();
   }
 
@@ -72,60 +75,57 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Country Maps'),
-        backgroundColor: Colors.yellow,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: GoogleMap(
-              onMapCreated: (controller) {
-                mapController = controller;
-              },
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(0, 0),
-                zoom: 6,
-              ),
-              markers: selectedCountry != null
-                  ? {
-                      Marker(
-                        markerId: MarkerId(selectedCountry!.name),
-                        position: LatLng(selectedCountry!.latlng[0].toDouble(),
-                            selectedCountry!.latlng[1].toDouble()),
-                        infoWindow: InfoWindow(
-                          title: selectedCountry!.name,
+    return Container(
+      color: Theme.of(context).colorScheme.primary,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Country Maps'),
+          // Vous pouvez également utiliser AppBarTheme pour personnaliser le thème de l'appBar.
+          // appBarTheme: AppBarTheme(color: Colors.purple),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: GoogleMap(
+                onMapCreated: (controller) {
+                  mapController = controller;
+                },
+                initialCameraPosition: const CameraPosition(
+                  target: LatLng(0, 0),
+                  zoom: 6,
+                ),
+                markers: selectedCountry != null
+                    ? {
+                        Marker(
+                          markerId: MarkerId(selectedCountry!.name),
+                          position: LatLng(
+                              selectedCountry!.latlng[0].toDouble(),
+                              selectedCountry!.latlng[1].toDouble()),
+                          infoWindow: InfoWindow(
+                            title: selectedCountry!.name,
+                          ),
+                          onTap: () {
+                            // Navigation vers l'écran de détails du pays
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CountryDetailsScreen(
+                                  country: selectedCountry!,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        onTap: () {
-                          // Navigation vers l'écran de détails du pays
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CountryDetailsScreen(
-                                  country: selectedCountry!),
-                            ),
-                          );
-                        },
-                      ),
-                    }
-                  : {},
+                      }
+                    : {},
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors
-                  .yellow[200], // Couleur d'arrière-plan du menu déroulant
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: DropdownButtonFormField<Country>(
+            const SizedBox(height: 10),
+            DropdownButtonFormField<Country>(
               value: selectedCountry,
               hint: const Text(
                 'Select a country',
-                style: TextStyle(
-                  color: Colors.grey, // Couleur du texte
-                ),
+                style: TextStyle(),
               ),
               onChanged: (Country? newValue) {
                 setState(() {
@@ -151,8 +151,8 @@ class MapScreenState extends State<MapScreen> {
                 );
               }).toList(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
