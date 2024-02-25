@@ -1,11 +1,14 @@
 // country_details_screen.dart
 import 'package:flutter/material.dart';
 
+// Classe représentant les drapeaux du pays
 class CountryFlags {
   final String png;
 
+  // Constructeur prenant le chemin du fichier PNG
   CountryFlags({required this.png});
 
+  // Fabrique pour créer une instance de CountryFlags à partir d'un objet JSON
   factory CountryFlags.fromJson(Map<String, dynamic> json) {
     return CountryFlags(
       png: json['png'] as String,
@@ -13,32 +16,37 @@ class CountryFlags {
   }
 }
 
+// Classe représentant un pays
 class Country {
   final String name;
   final List<double> latlng;
   final CountryFlags flags;
 
+  // Constructeur prenant le nom, la latitude/longitude et les drapeaux du pays
   Country({required this.name, required this.latlng, required this.flags});
 
+  // Fabrique pour créer une instance de Country à partir d'un objet JSON
   factory Country.fromJson(Map<String, dynamic> json) {
     return Country(
       name: json['name']['common'],
       latlng: (json['latlng'] as List).cast<double>(),
-      flags: CountryFlags.fromJson(json['flags']), // Parse flags object
+      flags: CountryFlags.fromJson(json['flags']), // Parse l'objet flags
     );
   }
 }
 
+// Écran des détails du pays
 class CountryDetailsScreen extends StatelessWidget {
   final Country country;
 
-  CountryDetailsScreen({required this.country});
+  // Constructeur prenant un objet Country pour afficher les détails
+  const CountryDetailsScreen({required this.country, super.key });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Country Details'),
+        title: const Text('Country Details'),
       ),
       body: Center(
         child: Column(
@@ -46,19 +54,19 @@ class CountryDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.network(
-              country.flags.png, // Use the png property from flags
+              country.flags.png, // Utilise la propriété png de flags
               width: 100,
-              height: 60, // Adjust width and height as needed
+              height: 60, // Ajuste la largeur et la hauteur selon les besoins
             ),
             Text('Name: ${country.name}'),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text('LatLng: ${country.latlng[0]}, ${country.latlng[1]}'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Go back to the map screen
+                Navigator.pop(context); // Retourne à l'écran de la carte
               },
-              child: Text('Go Back to Map'),
+              child: const Text('Go Back to Map'),
             ),
           ],
         ),
