@@ -1,10 +1,12 @@
+// ignore_for_file: use_super_parameters
+
 import 'dart:convert';
 import 'package:feedfriendlocator/country.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// Définissez le thème que vous souhaitez appliquer globalement
+// Thème à appliquer globalement
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme:
@@ -80,8 +82,6 @@ class MapScreenState extends State<MapScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Country Maps'),
-          // Vous pouvez également utiliser AppBarTheme pour personnaliser le thème de l'appBar.
-          // appBarTheme: AppBarTheme(color: Colors.purple),
         ),
         body: Column(
           children: [
@@ -122,10 +122,13 @@ class MapScreenState extends State<MapScreen> {
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<Country>(
+              dropdownColor: Colors.amber[100],
+              decoration: const InputDecoration(
+                  fillColor: Color.fromARGB(255, 243, 230, 192), filled: true),
               value: selectedCountry,
               hint: const Text(
                 'Select a country',
-                style: TextStyle(),
+                style: TextStyle(color: Color.fromARGB(255, 50, 58, 24)),
               ),
               onChanged: (Country? newValue) {
                 setState(() {
@@ -146,9 +149,11 @@ class MapScreenState extends State<MapScreen> {
               items:
                   countries.map<DropdownMenuItem<Country>>((Country country) {
                 return DropdownMenuItem<Country>(
-                  value: country,
-                  child: Text(country.name),
-                );
+                    value: country,
+                    child: Text(country.name,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        )));
               }).toList(),
             ),
           ],
