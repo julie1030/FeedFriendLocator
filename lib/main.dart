@@ -147,9 +147,7 @@ class MapScreenState extends State<MapScreen> {
                   countries.map<DropdownMenuItem<Country>>((Country country) {
                 return DropdownMenuItem<Country>(
                   value: country,
-                  child: ListTile(
-                    title: Text(country.name),
-                  ),
+                  child: Text(country.name),
                 );
               }).toList(),
             ),
